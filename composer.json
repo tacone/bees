@@ -1,0 +1,26 @@
+{
+  "name": "tacone/bees",
+  "description": "A thin wrapper over PHP iterators",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "tacone",
+      "email": "known-only@to.me"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Tacone\\Bees\\": "src/",
+      "Tacone\\Bees\\Test\\": "tests/"
+    },
+    "files": ["src/functions.php"]
+  },
+  "require": {
+    "tacone/datasource": "dev-master"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.0"
+  },
+  "prefer-stable" : true,
+  "minimum-stability": "dev"
+}
