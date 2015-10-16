@@ -1,9 +1,12 @@
 <?php
 
 namespace Tacone\Bees\Test;
-require_once __DIR__.'/utils/laravel.php';
+require_once __DIR__ . '/utils/laravel.php';
 
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Http\Request;
+use Input;
+use Mockery;
 use Schema;
 
 class BaseTestCase extends \Illuminate\Foundation\Testing\TestCase
@@ -24,13 +27,16 @@ class BaseTestCase extends \Illuminate\Foundation\Testing\TestCase
 
     public function createApplication()
     {
-    }
-
-    public function refreshApplication()
-    {
         $app = bootstrapLaravel();
         return $app;
     }
+
+//    public function refreshApplication()
+//    {
+//        $app = bootstrapLaravel();
+//        return $app;
+//    }
+
     public function setUp()
     {
         parent::setUp();
@@ -46,6 +52,20 @@ class BaseTestCase extends \Illuminate\Foundation\Testing\TestCase
         $this->createDatabase();
     }
 
+    protected function mockInput(array $query = null, array $request = null, array $attributes = null, array $cookies = null, array $files = null, array $server = null)
+    {
+//        $new = Input::duplicate($uri, $method, $parameters, $cookies, $files, $server, $content);
+//        Input::swap($new);
+//        Request::createFromBase(Re)->function
+        $app = app();
+        dd($app);
+        $current = $app['request'];
+        /** @var Request $new */
+        $new = $current->duplicate($query, $request, $attributes, $cookies, $files, $server);
+        $app['request'] = $new;
+
+//        \Request::createFromBase($new->)
+    }
 
     protected function createDatabase()
     {
@@ -117,7 +137,9 @@ class BaseTestCase extends \Illuminate\Foundation\Testing\TestCase
             $model->save();
         }
     }
-    public function createPivot($tableName, $data) {
+
+    public function createPivot($tableName, $data)
+    {
         \DB::table($tableName)->truncate();
         foreach ($data as $record) {
             \DB::table($tableName)->insert($record);

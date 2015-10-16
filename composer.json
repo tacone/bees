@@ -10,17 +10,23 @@
   ],
   "autoload": {
     "psr-4": {
-      "Tacone\\Bees\\": "src/",
-      "Tacone\\Bees\\Test\\": "tests/"
+      "Tacone\\Bees\\": "lib/",
+      "Tacone\\Bees\\Test\\": "tests/",
+      "Tacone\\Bees\\Demo\\Controllers\\": "src/controllers/",
+      "Tacone\\Bees\\Demo\\Models\\": "src/models/"
     },
-    "files": ["src/functions.php"]
+    "files": [
+      "lib/functions.php"
+    ]
   },
   "require": {
-    "tacone/datasource": "dev-master"
+    "tacone/datasource": "dev-master",
+    "illuminate/html": "~5.0",
+    "illuminate/support": "~5.0"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.0"
   },
-  "prefer-stable" : true,
+  "prefer-stable": true,
   "minimum-stability": "dev"
 }
