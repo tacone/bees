@@ -57,6 +57,7 @@ echo "Installing Faker" . PHP_EOL;
 passthru("php composer.phar require fzaninotto/faker '@stable'");
 
 echo "Reverting composer.json" . PHP_EOL;
+passthru("cp composer.json composer.json.test");
 passthru("cp composer.json.backup composer.json");
 passthru("rm composer.json.backup");
 
