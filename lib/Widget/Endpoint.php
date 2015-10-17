@@ -6,19 +6,12 @@ use App;
 use ArrayAccess;
 use Countable;
 use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Support\Contracts\ArrayableInterface;
 use IteratorAggregate;
 use Tacone\Bees\Base\CopiableTrait;
 use Tacone\Bees\Base\DelegatedArrayTrait;
-use Tacone\Bees\Base\Exposeable;
-use Tacone\Bees\Base\HtmlAttributesTrait;
-use Tacone\Bees\Base\StringableTrait;
-use Tacone\Bees\Base\WrappableTrait;
 use Tacone\Bees\Collection\FieldCollection;
 use Tacone\Bees\Field\Field;
-use function Tacone\Bees\missing_method_message;
-use Tacone\Bees\Output\CompositeOutputtable;
-use Tacone\Bees\Output\Tag;
+use Tacone\Bees\Helper\Error;
 use Tacone\DataSource\DataSource;
 
 class Endpoint implements Countable, IteratorAggregate, ArrayAccess, Arrayable
@@ -67,7 +60,7 @@ class Endpoint implements Countable, IteratorAggregate, ArrayAccess, Arrayable
         }
 
         // oh, well, then ...
-        throw new \BadMethodCallException(missing_method_message($this, $name));
+        throw Error::missingMethod($this, $name);
     }
 
     /**

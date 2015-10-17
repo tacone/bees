@@ -3,8 +3,7 @@
 namespace Tacone\Bees\Attribute;
 
 use Tacone\Bees\Base\Exposeable;
-use Tacone\Bees\Base\StringableTrait;
-use function Tacone\Bees\is_safe_callable;
+use Tacone\Bees\Helper\Callback;
 
 class Attribute
 {
@@ -39,7 +38,7 @@ class Attribute
     public function get()
     {
         $value = $this->rawGet();
-        if (is_safe_callable($this->callback)) {
+        if (Callback::isSafe($this->callback)) {
             $func = $this->callback;
 
             return $func($value);
@@ -50,7 +49,7 @@ class Attribute
 
     public function set($value)
     {
-        if (is_safe_callable($value)) {
+        if (Callback::isSafe($value)) {
             $this->callback = $value;
 
             return $this;

@@ -1,8 +1,7 @@
 <?php
 
 namespace Tacone\Bees\Base;
-use function Tacone\Bees\is_safe_callable;
-use function Tacone\Bees\missing_method_message;
+use Tacone\Bees\Helper\Callback;
 
 /**
  * Use this trait to enable objects to expose a jQuery-like
@@ -125,7 +124,7 @@ trait Exposeable
 
         foreach ($parentProperties as $propertyName) {
             // check if the property implements the __invoke() method
-            if ($methodName === $propertyName && is_safe_callable($parent->$propertyName)) {
+            if ($methodName === $propertyName && Callback::isSafe($parent->$propertyName)) {
                 return static::callExposeableMethod($parent, $parent->$methodName, null, $parameters);
             }
 
@@ -150,6 +149,6 @@ trait Exposeable
         }
 
         // the method does not exist or it hasn't been exposed
-        throw new \BadMethodCallException(missing_method_message($parent, $methodName));
+        throw Error::missingMethod($parent, $methodName);
     }
 }

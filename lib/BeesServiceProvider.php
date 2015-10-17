@@ -22,7 +22,6 @@ class BeesServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadViewsFrom(__DIR__.'/../src/views', 'bees');
-//        $this->package('tacone/bees');
     }
 
     protected function registerFields()
@@ -58,7 +57,6 @@ class BeesServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerFields();
-        require_once __DIR__.'/functions.php';
     }
 
     /**
