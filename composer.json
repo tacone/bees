@@ -25,9 +25,6 @@
     "fzaninotto/faker": "@stable",
     "orchestra/testbench": "dev-master"
   },
-  "require-dev": {
-    "phpunit/phpunit": "~4.0"
-  },
   "prefer-stable": true,
   "minimum-stability": "dev"
 }
