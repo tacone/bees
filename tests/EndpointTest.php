@@ -48,7 +48,7 @@ class EndpointTest extends BaseTestCase
     {
         $expected = ['name' => 'Frank', 'surname' => 'Sinatra'];
 
-        $response = $this->handle(function () use ($expected) {
+        $response = $this->request(function () use ($expected) {
 
             $source = [];
             $e = new Endpoint($source);

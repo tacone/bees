@@ -2,7 +2,7 @@
 
 namespace Tacone\Bees\Field;
 
-class String extends Field
+class StringField extends Field
 {
     public function renderEdit()
     {

@@ -44,7 +44,7 @@ class BaseTestCase extends \Orchestra\Testbench\TestCase
         $this->createDatabase();
     }
 
-    function handle(\Closure $closure, $method = 'GET', $uri = '', $parameters = [])
+    function request(\Closure $closure, $method = 'GET', $uri = '', $parameters = [])
     {
         $this->refreshApplication();
 
