@@ -37,9 +37,13 @@ echo PHP_EOL;
 echo "Backupping composer.json" . PHP_EOL;
 passthru("cp composer.json composer.json.backup");
 
-$tokens = explode('.', $laravelVersion);
-$tokens[0] -= 2;
-$orchestralVersion = join('.', array_slice($tokens, 0, 2));
+if (strpos($laravelVersion, '.')) {
+    $tokens = explode('.', $laravelVersion);
+    $tokens[0] -= 2;
+    $orchestralVersion = join('.', array_slice($tokens, 0, 2)).'.*';
+} else {
+    $orchestralVersion = $laravelVersion;
+}
 
 if (file_exists('vendor')) {
     echo "Removing vendor folder..." . PHP_EOL;
@@ -47,7 +51,7 @@ if (file_exists('vendor')) {
 }
 
 echo "Installing Orchestral $orchestralVersion: " . PHP_EOL;
-passthru("php composer.phar require orchestra/testbench '$orchestralVersion.*'");
+passthru("php composer.phar require orchestra/testbench '$orchestralVersion'");
 
 echo "Installing Faker" . PHP_EOL;
 passthru("php composer.phar require fzaninotto/faker '@stable'");
