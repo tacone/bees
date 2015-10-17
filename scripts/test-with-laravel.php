@@ -1,62 +1,59 @@
 #!/usr/bin/env php
 <?php
 
-require_once __DIR__.'/../tests/utils/laravel.php';
-
-// WARNING: this script deletes folders recursively !!
-
 /*
- * This script will install Laravel in this package subfolder for
- * automated testing purposes.
+ * This script will install the right version of Orchestral depending on
+ * the Laravel version you want to test with.
  *
- * You don't need to use this, if you have a working Laravel installation
- * which depends on this package. In that case just `cd` in this package
- * directory and run `phpunit`
+ * WARNING! In order to update the dependencies, it will remove the vendor
+ * folder of this package.
  *
- * ```bash
- * cd vendor/tacone/bees
- * phpunit
- * ```
- *
- * Otherwise:
+ * Sample usage:
  *
  * ```bash
  * cd vendor/tacone/bees
  * scripts/test-with-laravel 5.1
  * phpunit
  * ```
- *
- * In the latter case, the tests will use the laravel installation in
- * the `laravel` subfolder.
- *
- * You'll probably don't need this, we do because we need to test this
- * package with all the Laravel versions around.
  */
-chdir(__DIR__.'/..');
+chdir(__DIR__ . '/..');
+
+$laravelVersion = !empty($argv[1]) ? $argv[1] : '';
+if (!$laravelVersion) {
+    echo "You need to supply a Laravel version as the first parameter, for instance: 5.1" . PHP_EOL;
+    echo PHP_EOL;
+    exit(1);
+}
+
+echo "Bootstrapping package to test with Laravel $laravelVersion";
+echo PHP_EOL;
 
 if (!file_exists('composer.phar')) {
-    echo 'downloading composer:'.PHP_EOL;
+    echo 'downloading composer:' . PHP_EOL;
     passthru('php -r "readfile(\'https://getcomposer.org/installer\');" | php');
 }
 echo PHP_EOL;
 
-$dir = __DIR__.'/../laravel';
-if (file_exists($dir)) {
-    echo "deleting existing laravel installation at $dir:".PHP_EOL;
-    passthru("rm  $dir -rf");
+echo "Backupping composer.json" . PHP_EOL;
+passthru("cp composer.json composer.json.backup");
+
+$tokens = explode('.', $laravelVersion);
+$tokens[0] -= 2;
+$orchestralVersion = join('.', array_slice($tokens, 0, 2));
+
+if (file_exists('vendor')) {
+    echo "Removing vendor folder..." . PHP_EOL;
+    passthru("rm vendor -rf");
 }
 
-echo PHP_EOL;
+echo "Installing Orchestral $orchestralVersion: " . PHP_EOL;
+passthru("php composer.phar require orchestra/testbench '$orchestralVersion.*'");
 
-$laravelVersion = !empty($argv[1])? ' '.$argv[1]:'';
+echo "Installing Faker" . PHP_EOL;
+passthru("php composer.phar require fzaninotto/faker '@stable'");
 
-echo "Install a new Laravel$laravelVersion: ".PHP_EOL;
-passthru("php composer.phar create-project laravel/laravel $dir$laravelVersion");
-
-// change dir to laravel and suck the deps
-chdir($dir);
-passthru("pwd");
-
-passthru("php ../composer.phar update");
+echo "Reverting composer.json" . PHP_EOL;
+passthru("cp composer.json.backup composer.json");
+passthru("rm composer.json.backup");
 
 

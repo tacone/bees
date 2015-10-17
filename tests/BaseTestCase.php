@@ -1,15 +1,15 @@
 <?php
 
 namespace Tacone\Bees\Test;
-require_once __DIR__ . '/utils/laravel.php';
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
 use Input;
 use Mockery;
 use Schema;
+use Tacone\Bees\BeesServiceProvider;
 
-class BaseTestCase extends \Illuminate\Foundation\Testing\TestCase
+class BaseTestCase extends \Orchestra\Testbench\TestCase
 {
     // see: https://github.com/sebastianbergmann/phpunit/issues/856
     // and: https://github.com/sebastianbergmann/phpunit/issues/314
@@ -25,18 +25,10 @@ class BaseTestCase extends \Illuminate\Foundation\Testing\TestCase
         return call_user_func_array('parent::__construct', $args);
     }
 
-    public function createApplication()
+    protected function getApplicationTimezone($app)
     {
-        $app = bootstrapLaravel();
-        return $app;
+        return 'UTC';
     }
-
-//    public function refreshApplication()
-//    {
-//        $app = bootstrapLaravel();
-//        return $app;
-//    }
-
     public function setUp()
     {
         parent::setUp();
@@ -52,19 +44,22 @@ class BaseTestCase extends \Illuminate\Foundation\Testing\TestCase
         $this->createDatabase();
     }
 
-    protected function mockInput(array $query = null, array $request = null, array $attributes = null, array $cookies = null, array $files = null, array $server = null)
+    function handle(\Closure $closure, $method = 'GET', $uri = '', $parameters = [])
     {
-//        $new = Input::duplicate($uri, $method, $parameters, $cookies, $files, $server, $content);
-//        Input::swap($new);
-//        Request::createFromBase(Re)->function
-        $app = app();
-        dd($app);
-        $current = $app['request'];
-        /** @var Request $new */
-        $new = $current->duplicate($query, $request, $attributes, $cookies, $files, $server);
-        $app['request'] = $new;
+        $this->refreshApplication();
 
-//        \Request::createFromBase($new->)
+        $method = strtolower($method);
+        $uri = $uri ?: 'resource';
+
+        $this->app['router']->$method($uri, $closure);
+        return $this->call(strtoupper($method), $uri, $parameters);
+    }
+
+    protected function getPackageProviders($app)
+    {
+        return [
+            BeesServiceProvider::class
+        ];
     }
 
     protected function createDatabase()

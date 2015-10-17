@@ -13,7 +13,6 @@ use Tacone\Bees\Helper\ArrayHelper;
 class FieldCollection implements \Countable, \IteratorAggregate, \ArrayAccess, Arrayable
 {
     use DelegatedArrayTrait;
-    use StringableTrait;
     use CompositeTrait;
 
     public function __construct()
@@ -74,22 +73,6 @@ class FieldCollection implements \Countable, \IteratorAggregate, \ArrayAccess, A
         }
 
         return ArrayHelper::undot($array);
-    }
-
-//    public function rules()
-//    {
-//        die('ds');
-//        $rules = [];
-//        foreach ($this as $name => $field) {
-//            $rules[$name] = $field->rules->toArray();
-//        }
-//
-//        return $rules;
-//    }
-
-    protected function render()
-    {
-        return $this->dispatch('output');
     }
 
     public function validate()

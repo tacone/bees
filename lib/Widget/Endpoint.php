@@ -24,10 +24,7 @@ use Tacone\DataSource\DataSource;
 class Endpoint implements Countable, IteratorAggregate, ArrayAccess, Arrayable
 {
     use DelegatedArrayTrait;
-    use StringableTrait;
-    use HtmlAttributesTrait;
     use CopiableTrait;
-    use WrappableTrait;
 
     /**
      * @var FieldCollection
@@ -122,19 +119,6 @@ class Endpoint implements Countable, IteratorAggregate, ArrayAccess, Arrayable
     protected function getDelegatedStorage()
     {
         return $this->fields;
-    }
-
-    /**
-     * Renders the form as an HTML string.
-     * This method is also called by __toString().
-     *
-     * @return string
-     */
-    protected function render()
-    {
-        return $this->start
-        .$this->fields
-        .$this->end;
     }
 
     /**

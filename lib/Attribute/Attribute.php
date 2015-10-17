@@ -8,7 +8,6 @@ use function Tacone\Bees\is_safe_callable;
 
 class Attribute
 {
-    use StringableTrait;
     use Exposeable;
 
     public $value = null;
@@ -59,15 +58,5 @@ class Attribute
         $this->value = $value;
 
         return $this;
-    }
-
-    /**
-     * Required by StringableTrait, must return a string;.
-     *
-     * @return string
-     */
-    protected function render()
-    {
-        return (string) $this->get();
     }
 }

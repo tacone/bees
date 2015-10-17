@@ -7,7 +7,6 @@ php:
   - hhvm
 
 env:
-  - LARAVEL=4.2
   - LARAVEL=5.0
   - LARAVEL=5.1
   - LARAVEL=dev-master

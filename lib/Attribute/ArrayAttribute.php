@@ -8,7 +8,6 @@ use Tacone\Bees\Base\StringableTrait;
 
 class ArrayAttribute implements \Countable, \IteratorAggregate, \ArrayAccess
 {
-    use StringableTrait;
     use DelegatedArrayTrait;
     use Exposeable;
 
@@ -48,18 +47,6 @@ class ArrayAttribute implements \Countable, \IteratorAggregate, \ArrayAccess
         $this->value->exchangeArray($value);
 
         return $this;
-    }
-
-    /**
-     * Required by StringableTrait, must return a string;.
-     *
-     * @return string
-     */
-    protected function render()
-    {
-        foreach ($this->toArray() as $value) {
-            return $value;
-        }
     }
 
     /**

@@ -4,3 +4,4 @@ composer.lock
 .DS_Store
 laravel
 _ide_helper.php
+composer.json.backup
