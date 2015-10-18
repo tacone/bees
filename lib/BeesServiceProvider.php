@@ -40,32 +40,10 @@ class BeesServiceProvider extends ServiceProvider
     }
 
     /**
-     * Guess the package path for the provider.
-     *
-     * @return string
-     */
-    public function guessPackagePath()
-    {
-        $path = (new ReflectionClass($this))->getFileName();
-
-        return realpath(dirname($path).'/../src');
-    }
-
-    /**
      * Register the service provider.
      */
     public function register()
     {
         $this->registerFields();
-    }
-
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
-    public function provides()
-    {
-        return array();
     }
 }
