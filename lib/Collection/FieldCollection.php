@@ -75,6 +75,9 @@ class FieldCollection implements \Countable, \IteratorAggregate, \ArrayAccess, A
         return ArrayHelper::undot($array);
     }
 
+    /**
+     * @return bool
+     */
     public function validate()
     {
         $validator = \Validator::make(

@@ -13,6 +13,7 @@ class EndpointTest extends BaseTestCase
     {
         $source = [];
         $e = new Endpoint($source);
+        assertInstanceOf(Endpoint::class, $e);
     }
 
     function testAddNonExistingField()
@@ -33,17 +34,6 @@ class EndpointTest extends BaseTestCase
         assertSame($field, $e['name']);
     }
 
-    function testInput()
-    {
-
-        $expected = ['name' => 'Frank', 'surname' => 'Sinatra'];
-//        $this->mockInput(null, $expected);
-
-//        $this->refreshApplication();
-//        $r = $this->call('GET', '/');
-//        dd($r);
-    }
-
     function testPopulate()
     {
         $expected = ['name' => 'Frank', 'surname' => 'Sinatra'];
@@ -60,6 +50,18 @@ class EndpointTest extends BaseTestCase
         }, 'POST', null, $expected);
     }
 
+    function testValidate() {
+        $source = [];
+        $e = new Endpoint($source);
+        $e->string('name')->rules('required');
+        $e->string('surname')->rules('required');
+        $e->populate();
+        $this->assertFalse($e->validate());
+        $errors = $e->errors();
+        $this->assertSame(2, count($errors));
+        assertTrue(!empty($errors['name']));
+        assertTrue(!empty($errors['surname']));
+    }
 
     function testBasicFlow()
     {
@@ -73,6 +75,7 @@ class EndpointTest extends BaseTestCase
         $e->string('name');
         $e->string('surname');
         $e->populate();
+        $e->validate();
         $e->writeSource();
         assertSame($source, $e->toArray());
     }

@@ -157,4 +157,14 @@ class Endpoint implements Countable, IteratorAggregate, ArrayAccess, Arrayable
 
         return call_user_func_array([$this->fields, 'validate'], $arguments);
     }
+
+    /**
+     * @return mixed
+     */
+    public function errors()
+    {
+        $arguments = func_get_args();
+
+        return call_user_func_array([$this->fields, 'errors'], $arguments);
+    }
 }
