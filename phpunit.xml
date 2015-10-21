@@ -16,4 +16,7 @@
             <directory suffix="Test.php">./tests/</directory>
         </testsuite>
     </testsuites>
+    <whitelist processUncoveredFilesFromWhitelist="false">
+        <directory suffix=".php">/src</directory>
+    </whitelist>
 </phpunit>

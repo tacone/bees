@@ -12,6 +12,7 @@ use Tacone\Bees\Base\DelegatedArrayTrait;
 use Tacone\Bees\Collection\FieldCollection;
 use Tacone\Bees\Field\Field;
 use Tacone\Bees\Helper\Error;
+use Tacone\DataSource\AbstractDataSource;
 use Tacone\DataSource\DataSource;
 
 class Endpoint implements Countable, IteratorAggregate, ArrayAccess, Arrayable
@@ -22,27 +23,27 @@ class Endpoint implements Countable, IteratorAggregate, ArrayAccess, Arrayable
     /**
      * @var FieldCollection
      */
-    public $fields;
+    protected $fields;
 
     /**
      * @var DataSource
      */
-    public $source;
+    protected $source;
 
-    public function __construct($source = null)
+    public function __construct($source = [])
     {
         $this->fields = new FieldCollection();
         $this->initSource($source);
     }
 
-    protected function initSource($source = null)
+    protected function initSource($source)
     {
         $this->source = DataSource::make($source);
     }
 
     /**
      * @param string $name
-     * @param array  $arguments
+     * @param array $arguments
      *
      * @return Field|static|mixed
      */
@@ -61,6 +62,15 @@ class Endpoint implements Countable, IteratorAggregate, ArrayAccess, Arrayable
 
         // oh, well, then ...
         throw Error::missingMethod($this, $name);
+    }
+
+    public function source($newSource = null)
+    {
+        if (func_num_args()) {
+            $this->source = $newSource;
+            return $this;
+        }
+        return $this->source;
     }
 
     /**
@@ -130,13 +140,26 @@ class Endpoint implements Countable, IteratorAggregate, ArrayAccess, Arrayable
      */
     public function populate()
     {
-        $inputData = array_dot(\Input::all());
-
-        return call_user_func_array([$this->fields, 'populate'], [
-            $this->source,
-            $inputData,
-        ]);
+        $this->fromSource();
+        $this->fromInput();
     }
+
+    public function fromSource()
+    {
+        return $this->from($this->source);
+    }
+
+    public function fromInput() {
+        return $this->from(\Input::all());
+    }
+
+    public function from($source) {
+        if (!$source instanceof AbstractDataSource) {
+            $source = DataSource::make($source);
+        }
+        return $this->fields->from($source);
+    }
+
 
     /**
      * Saves the models back to the database.

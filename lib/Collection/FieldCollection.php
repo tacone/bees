@@ -86,7 +86,7 @@ class FieldCollection implements \Countable, \IteratorAggregate, \ArrayAccess, A
         );
         $names = array();
         foreach ($this as $field) {
-            $names[$field->name()] = '"'.$field->label().'"';
+            $names[$field->name()] = '"' . $field->label() . '"';
         }
         $validator->setAttributeNames($names);
         foreach ($validator->errors()->getMessages() as $name => $messages) {
@@ -96,14 +96,11 @@ class FieldCollection implements \Countable, \IteratorAggregate, \ArrayAccess, A
         return !$validator->fails();
     }
 
-    public function populate()
+    public function from($source)
     {
-        $dataSources = func_get_args();
         foreach ($this as $name => $field) {
-            foreach ($dataSources as $source) {
-                if (isset($source[$name])) {
-                    $field->value($source[$name]);
-                }
+            if (isset($source[$name])) {
+                $field->value($source[$name]);
             }
         }
     }

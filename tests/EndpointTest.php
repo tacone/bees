@@ -4,17 +4,35 @@ namespace Tacone\Bees\Test;
 
 use Tacone\Bees\Field\Field;
 use Tacone\Bees\Widget\Endpoint;
+use Tacone\DataSource\ArrayDataSource;
 
 class EndpointTest extends BaseTestCase
 {
     protected $baseUrl = '/';
 
-    function testConstruct()
+    function testSource() {
+        $e = new Endpoint();
+        assertSame([], $e->toArray());
+        $result = $e->source(['a' => 1]);
+        assertSame($e, $result);
+        assertSame(['a' => 1], $e->source());
+    }
+
+    function testConstructSource()
     {
         $source = [];
         $e = new Endpoint($source);
-        assertInstanceOf(Endpoint::class, $e);
+        assertInstanceOf(ArrayDataSource::class, $e->source());
+        assertSame($source, $e->toArray());
+
+        // an empty array should be the default source
+        // if no source is passed in
+        $e = new Endpoint();
+        assertSame([], $e->toArray());
+        assertInstanceOf(ArrayDataSource::class, $e->source());
     }
+
+
 
     function testAddNonExistingField()
     {
@@ -22,6 +40,7 @@ class EndpointTest extends BaseTestCase
 
         $source = ['name' => 'Frank', 'surname' => 'Sinatra'];
         $e = new Endpoint($source);
+        // irrational integer field does not exists
         $e->irrationalInteger('name');
     }
 
@@ -50,7 +69,8 @@ class EndpointTest extends BaseTestCase
         }, 'POST', null, $expected);
     }
 
-    function testValidate() {
+    function testValidate()
+    {
         $source = [];
         $e = new Endpoint($source);
         $e->string('name')->rules('required');
@@ -74,7 +94,8 @@ class EndpointTest extends BaseTestCase
         $e = new Endpoint($source);
         $e->string('name');
         $e->string('surname');
-        $e->populate();
+        $e->fromSource();
+        $e->fromInput();
         $e->validate();
         $e->writeSource();
         assertSame($source, $e->toArray());
