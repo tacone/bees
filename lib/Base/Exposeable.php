@@ -1,6 +1,7 @@
 <?php
 
 namespace Tacone\Bees\Base;
+
 use Tacone\Bees\Helper\Callback;
 
 /**

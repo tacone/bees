@@ -11,6 +11,4 @@ class Error
             'Method \''.get_class($object)."::$methodName' does not exist"
         );
     }
-
-
 }

@@ -4,7 +4,6 @@ namespace Tacone\Bees\Attribute;
 
 use Tacone\Bees\Base\DelegatedArrayTrait;
 use Tacone\Bees\Base\Exposeable;
-use Tacone\Bees\Base\StringableTrait;
 
 class ArrayAttribute implements \Countable, \IteratorAggregate, \ArrayAccess
 {

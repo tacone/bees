@@ -1,5 +1,5 @@
 <?php
 
-class FakeController extends \App\Http\Controllers\Controller{
-
+class FakeController extends \App\Http\Controllers\Controller
+{
 }

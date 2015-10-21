@@ -8,12 +8,6 @@ use Tacone\Bees\Attribute\JoinedArrayAttribute;
 use Tacone\Bees\Attribute\Label;
 use Tacone\Bees\Base\CopiableTrait;
 use Tacone\Bees\Base\Exposeable;
-use Tacone\Bees\Base\HtmlAttributesTrait;
-use Tacone\Bees\Base\StringableTrait;
-use Tacone\Bees\Base\WrappableTrait;
-use Tacone\Bees\Helper\Html;
-use Tacone\Bees\Output\CallbackOutputtable;
-use Tacone\Bees\Output\ModalOutputtable;
 
 abstract class Field
 {
@@ -59,5 +53,4 @@ abstract class Field
     {
         return Exposeable::handleExposeables($this, $method, $parameters);
     }
-
 }

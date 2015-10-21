@@ -43,7 +43,7 @@ class Endpoint implements Countable, IteratorAggregate, ArrayAccess, Arrayable
 
     /**
      * @param string $name
-     * @param array $arguments
+     * @param array  $arguments
      *
      * @return Field|static|mixed
      */
@@ -68,8 +68,10 @@ class Endpoint implements Countable, IteratorAggregate, ArrayAccess, Arrayable
     {
         if (func_num_args()) {
             $this->source = $newSource;
+
             return $this;
         }
+
         return $this->source;
     }
 
@@ -149,17 +151,19 @@ class Endpoint implements Countable, IteratorAggregate, ArrayAccess, Arrayable
         return $this->from($this->source);
     }
 
-    public function fromInput() {
+    public function fromInput()
+    {
         return $this->from(\Input::all());
     }
 
-    public function from($source) {
+    public function from($source)
+    {
         if (!$source instanceof AbstractDataSource) {
             $source = DataSource::make($source);
         }
+
         return $this->fields->from($source);
     }
-
 
     /**
      * Saves the models back to the database.

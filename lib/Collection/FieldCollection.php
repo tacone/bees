@@ -3,11 +3,9 @@
 namespace Tacone\Bees\Collection;
 
 use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Support\Contracts\ArrayableInterface;
 use Tacone\Bees\Base\CompositeTrait;
 use Tacone\Bees\Base\DelegatedArrayTrait;
 use Tacone\Bees\Base\FieldStorage;
-use Tacone\Bees\Base\StringableTrait;
 use Tacone\Bees\Helper\ArrayHelper;
 
 class FieldCollection implements \Countable, \IteratorAggregate, \ArrayAccess, Arrayable
@@ -86,7 +84,7 @@ class FieldCollection implements \Countable, \IteratorAggregate, \ArrayAccess, A
         );
         $names = array();
         foreach ($this as $field) {
-            $names[$field->name()] = '"' . $field->label() . '"';
+            $names[$field->name()] = '"'.$field->label().'"';
         }
         $validator->setAttributeNames($names);
         foreach ($validator->errors()->getMessages() as $name => $messages) {

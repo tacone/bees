@@ -2,7 +2,6 @@
 
 namespace Tacone\Bees\Helper;
 
-
 class Callback
 {
     /**
@@ -17,7 +16,7 @@ class Callback
      *
      * @return bool
      */
-    static public function isSafe($callable)
+    public static function isSafe($callable)
     {
         return (
             is_callable($callable)
@@ -26,15 +25,14 @@ class Callback
         );
     }
 
-    static public function unsafeErrorMessage($value)
+    public static function unsafeErrorMessage($value)
     {
         switch (gettype($value)) {
             case 'string':
                 return "Strings are not safe callables (got: '$value')";
             case 'array':
-                return 'String-only arrays are not safe callables (got: ' . json_encode($value) . ')';
+                return 'String-only arrays are not safe callables (got: '.json_encode($value).')';
         }
-        throw new LogicException('String or array expected, got: ' . gettype($value));
+        throw new LogicException('String or array expected, got: '.gettype($value));
     }
-
 }

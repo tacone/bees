@@ -30,7 +30,7 @@ class BeesServiceProvider extends ServiceProvider
         $fields = ['string', 'integer', 'float', 'boolean'];
         foreach ($fields as $class) {
             App::bind("bees.$class", function ($app, $arguments) use ($class, $namespace) {
-                $class = Str::studly($class)."Field";
+                $class = Str::studly($class).'Field';
                 $reflect = new ReflectionClass($namespace."\\$class");
                 $instance = $reflect->newInstanceArgs($arguments);
 

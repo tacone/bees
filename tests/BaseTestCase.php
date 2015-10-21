@@ -4,8 +4,6 @@ namespace Tacone\Bees\Test;
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
-use Input;
-use Mockery;
 use Schema;
 use Tacone\Bees\BeesServiceProvider;
 
@@ -44,7 +42,7 @@ class BaseTestCase extends \Orchestra\Testbench\TestCase
         $this->createDatabase();
     }
 
-    function request(\Closure $closure, $method = 'GET', $uri = '', $parameters = [])
+    public function request(\Closure $closure, $method = 'GET', $uri = '', $parameters = [])
     {
         $this->refreshApplication();
 
@@ -52,13 +50,14 @@ class BaseTestCase extends \Orchestra\Testbench\TestCase
         $uri = $uri ?: 'resource';
 
         $this->app['router']->$method($uri, $closure);
+
         return $this->call(strtoupper($method), $uri, $parameters);
     }
 
     protected function getPackageProviders($app)
     {
         return [
-            BeesServiceProvider::class
+            BeesServiceProvider::class,
         ];
     }
 
@@ -109,13 +108,11 @@ class BaseTestCase extends \Orchestra\Testbench\TestCase
             $table->integer('book_id')->unsigned();
             $table->integer('order_id')->unsigned();
         });
-
-
     }
 
     protected function includeModels()
     {
-        foreach (glob(__DIR__ . '/models/*.php') as $file) {
+        foreach (glob(__DIR__.'/models/*.php') as $file) {
             require_once $file;
         }
     }

@@ -4,7 +4,6 @@ namespace Tacone\Bees\Attribute;
 
 class ErrorsAttribute extends ArrayAttribute
 {
-
     public function __invoke()
     {
         // avoid parent-chaining

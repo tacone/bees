@@ -1,5 +1,6 @@
-<?php namespace Orchestra\Testbench\TestCase;
+<?php
 
+namespace Orchestra\Testbench\TestCase;
 
 use Tacone\Bees\Test\BaseTestCase;
 
@@ -8,9 +9,7 @@ class RouteTest extends BaseTestCase
     /**
      * Define environment setup.
      *
-     * @param  \Illuminate\Foundation\Application    $app
-     *
-     * @return void
+     * @param \Illuminate\Foundation\Application $app
      */
     protected function getEnvironmentSetUp($app)
     {
@@ -49,8 +48,7 @@ class RouteTest extends BaseTestCase
 
     public function testW()
     {
-
-        $this->assertEquals('FooController@index','FooController@index');
+        $this->assertEquals('FooController@index', 'FooController@index');
     }
 
     /**

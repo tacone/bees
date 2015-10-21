@@ -10,7 +10,8 @@ class EndpointTest extends BaseTestCase
 {
     protected $baseUrl = '/';
 
-    function testSource() {
+    public function testSource()
+    {
         $e = new Endpoint();
         assertSame([], $e->toArray());
         $result = $e->source(['a' => 1]);
@@ -18,7 +19,7 @@ class EndpointTest extends BaseTestCase
         assertSame(['a' => 1], $e->source());
     }
 
-    function testConstructSource()
+    public function testConstructSource()
     {
         $source = [];
         $e = new Endpoint($source);
@@ -32,9 +33,7 @@ class EndpointTest extends BaseTestCase
         assertInstanceOf(ArrayDataSource::class, $e->source());
     }
 
-
-
-    function testAddNonExistingField()
+    public function testAddNonExistingField()
     {
         $this->setExpectedException(\BadMethodCallException::class);
 
@@ -44,7 +43,7 @@ class EndpointTest extends BaseTestCase
         $e->irrationalInteger('name');
     }
 
-    function testAddExistingField()
+    public function testAddExistingField()
     {
         $source = [];
         $e = new Endpoint($source);
@@ -53,7 +52,7 @@ class EndpointTest extends BaseTestCase
         assertSame($field, $e['name']);
     }
 
-    function testPopulate()
+    public function testPopulate()
     {
         $expected = ['name' => 'Frank', 'surname' => 'Sinatra'];
 
@@ -65,11 +64,12 @@ class EndpointTest extends BaseTestCase
             $e->string('surname');
             $e->populate();
             assertSame($expected, $e->toArray());
+
             return $e->toArray();
         }, 'POST', null, $expected);
     }
 
-    function testValidate()
+    public function testValidate()
     {
         $source = [];
         $e = new Endpoint($source);
@@ -83,7 +83,7 @@ class EndpointTest extends BaseTestCase
         assertTrue(!empty($errors['surname']));
     }
 
-    function testBasicFlow()
+    public function testBasicFlow()
     {
         $source = [];
         $e = new Endpoint($source);
@@ -100,5 +100,4 @@ class EndpointTest extends BaseTestCase
         $e->writeSource();
         assertSame($source, $e->toArray());
     }
-
 }
