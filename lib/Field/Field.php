@@ -5,7 +5,6 @@ namespace Tacone\Bees\Field;
 use Tacone\Bees\Attribute\Attribute;
 use Tacone\Bees\Attribute\ErrorsAttribute;
 use Tacone\Bees\Attribute\JoinedArrayAttribute;
-use Tacone\Bees\Attribute\Label;
 use Tacone\Bees\Base\CopiableTrait;
 use Tacone\Bees\Base\Exposeable;
 
@@ -17,10 +16,7 @@ abstract class Field
      * @var Attribute
      */
     public $name;
-    /**
-     * @var
-     */
-    public $label;
+
     /**
      * @var
      */
@@ -35,7 +31,6 @@ abstract class Field
         // of this class
 
         $this->errors = new ErrorsAttribute();
-        $this->label = new Label($name, $label);
         $this->name = new Attribute($name);
         $this->rules = new JoinedArrayAttribute(null, '|');
         $this->value = new Attribute();

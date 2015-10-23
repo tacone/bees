@@ -84,7 +84,7 @@ class FieldCollection implements \Countable, \IteratorAggregate, \ArrayAccess, A
         );
         $names = array();
         foreach ($this as $field) {
-            $names[$field->name()] = '"'.$field->label().'"';
+            $names[$field->name()] = '"'.$field->name().'"';
         }
         $validator->setAttributeNames($names);
         foreach ($validator->errors()->getMessages() as $name => $messages) {

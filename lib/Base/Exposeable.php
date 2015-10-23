@@ -3,6 +3,7 @@
 namespace Tacone\Bees\Base;
 
 use Tacone\Bees\Helper\Callback;
+use Tacone\Bees\Helper\Error;
 
 /**
  * Use this trait to enable objects to expose a jQuery-like
@@ -72,7 +73,7 @@ trait Exposeable
      *
      * @return mixed $result the result returned by the method or the $parent itself
      */
-    public static function callExposeableMethod($parent, $property, $method = null, $parameters, $return = null)
+    protected static function callExposeableMethod($parent, $property, $method = null, $parameters, $return = null)
     {
         $callback = $method ? [$property, $method] : $property;
         $result = call_user_func_array($callback, $parameters);
