@@ -21,7 +21,6 @@ class BeesServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__.'/../src/views', 'bees');
     }
 
     protected function registerFields()
