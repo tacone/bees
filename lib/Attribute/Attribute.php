@@ -3,15 +3,12 @@
 namespace Tacone\Bees\Attribute;
 
 use Tacone\Bees\Base\Exposeable;
-use Tacone\Bees\Helper\Callback;
 
 class Attribute
 {
     use Exposeable;
 
     public $value = null;
-    /** @var callable */
-    public $callback = null;
 
     public function __construct($value = null)
     {
@@ -30,30 +27,13 @@ class Attribute
         return call_user_func_array([$this, 'set'], $arguments);
     }
 
-    protected function rawGet()
+    public function get()
     {
         return $this->value;
     }
 
-    public function get()
-    {
-        $value = $this->rawGet();
-        if (Callback::isSafe($this->callback)) {
-            $func = $this->callback;
-
-            return $func($value);
-        }
-
-        return $value;
-    }
-
     public function set($value)
     {
-        if (Callback::isSafe($value)) {
-            $this->callback = $value;
-
-            return $this;
-        }
         $this->value = $value;
 
         return $this;
