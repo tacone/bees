@@ -7,7 +7,6 @@ use ArrayAccess;
 use Countable;
 use Illuminate\Contracts\Support\Arrayable;
 use IteratorAggregate;
-use Tacone\Bees\Base\CopiableTrait;
 use Tacone\Bees\Base\DelegatedArrayTrait;
 use Tacone\Bees\Collection\FieldCollection;
 use Tacone\Bees\Field\Field;
@@ -18,7 +17,6 @@ use Tacone\DataSource\DataSource;
 class Endpoint implements Countable, IteratorAggregate, ArrayAccess, Arrayable
 {
     use DelegatedArrayTrait;
-    use CopiableTrait;
 
     /**
      * @var FieldCollection

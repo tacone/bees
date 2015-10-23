@@ -5,13 +5,10 @@ namespace Tacone\Bees\Field;
 use Tacone\Bees\Attribute\Attribute;
 use Tacone\Bees\Attribute\ErrorsAttribute;
 use Tacone\Bees\Attribute\JoinedArrayAttribute;
-use Tacone\Bees\Base\CopiableTrait;
 use Tacone\Bees\Base\Exposeable;
 
 abstract class Field
 {
-    use CopiableTrait;
-
     /**
      * @var Attribute
      */
