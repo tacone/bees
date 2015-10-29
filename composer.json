@@ -1,6 +1,6 @@
 {
   "name": "tacone/bees",
-  "description": "A thin wrapper over PHP iterators",
+  "description": "Unusable, incomplete and defective experiment",
   "license": "MIT",
   "authors": [
     {
@@ -18,9 +18,7 @@
   },
   "require": {
     "tacone/datasource": "dev-master",
-    "illuminate/support": ">= 5.0",
-    "fzaninotto/faker": "@stable",
-    "orchestra/testbench": "dev-master"
+    "illuminate/support": ">= 5.0"
   },
   "prefer-stable": true,
   "minimum-stability": "dev"
