@@ -8,12 +8,12 @@ class ScalarAttributeTest extends BaseTestCase
 {
     protected $baseUrl = '/';
 
-    public function testSource()
+    public function testHandle()
     {
         $obj = new \stdClass();
         $obj->data = [];
 
-        $attribute = ScalarAttribute::make($obj, $obj->data, 'test', []);
+        $attribute = ScalarAttribute::make($obj, $obj->data, 'test');
 
         assertNull($attribute->handle([]));
 

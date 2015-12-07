@@ -2,56 +2,15 @@
 
 namespace Tacone\Bees\Attribute;
 
-use Illuminate\Support\Str;
-
-class JoinedArrayAttribute extends CollectionAttribute
+class JoinedArrayAttribute extends ArrAttribute
 {
-    protected $separator;
+    protected $separator = '|';
 
-    public function __construct($value = [], $separator = ' ')
+    protected function castToArray($array)
     {
-        // assign separator first, because it's needed by the set function
-        // invoked by the parent constructor
-        $this->separator = $separator;
-        parent::__construct((array) $value);
-    }
+        $array = is_string($array) ? explode('|', $array) : $array;
 
-    /**
-     * Adds an item or an array of items to the collection.
-     * Strings will be split using the separator.
-     * You can also pass the items using multiple parameters.
-     *
-     * If you prepend an item with a ! all the occurrence of that
-     * item will be removed from the collection.
-     *
-     * @param $value
-     *
-     * @return $this
-     */
-    public function add($value)
-    {
-        $values = func_get_args();
-        foreach ($this->flattenValue($values) as $val) {
-            if (Str::startsWith($val, '!')) {
-                if ($this->has(substr($val, 1))) {
-                    $this->remove(substr($val, 1));
-                }
-            } else {
-                parent::add($val);
-            }
-        }
-
-        return $this;
-    }
-
-    public function __invoke()
-    {
-        if (!func_num_args()) {
-            return parent::__invoke();
-        }
-        $arguments = func_get_args();
-
-        return $this->add($arguments);
+        return parent::castToArray($array);
     }
 
     /**
@@ -83,21 +42,5 @@ class JoinedArrayAttribute extends CollectionAttribute
         $return = array_filter($return);
 
         return $return;
-    }
-
-    public function set($value)
-    {
-        $this->removeAll();
-        $this->add($value);
-    }
-
-    /**
-     * Required by StringableTrait, must return a string;.
-     *
-     * @return string
-     */
-    protected function render()
-    {
-        return implode($this->separator, $this->toArray());
     }
 }

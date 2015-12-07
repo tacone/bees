@@ -2,7 +2,7 @@
 
 namespace Tacone\Bees\Attribute;
 
-class AbstractAttribute
+abstract class AbstractAttribute
 {
     protected $object;
     protected $storage;
@@ -19,4 +19,6 @@ class AbstractAttribute
     {
         return new static ($object, $storage, $path);
     }
+
+    abstract public function handle($arguments);
 }

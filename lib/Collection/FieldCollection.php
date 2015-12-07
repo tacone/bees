@@ -5,7 +5,6 @@ namespace Tacone\Bees\Collection;
 use Illuminate\Contracts\Support\Arrayable;
 use Tacone\Bees\Base\CompositeTrait;
 use Tacone\Bees\Base\DelegatedArrayTrait;
-use Tacone\Bees\Base\FieldStorage;
 use Tacone\Bees\Helper\ArrayHelper;
 
 class FieldCollection implements \Countable, \IteratorAggregate, \ArrayAccess, Arrayable
@@ -15,7 +14,7 @@ class FieldCollection implements \Countable, \IteratorAggregate, \ArrayAccess, A
 
     public function __construct()
     {
-        $this->storage = new FieldStorage();
+        $this->storage = new \ArrayObject();
     }
 
     protected function compositeTraitGetChildren()
