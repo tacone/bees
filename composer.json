@@ -18,9 +18,7 @@
   },
   "require": {
     "tacone/datasource": "dev-master",
-    "illuminate/support": ">= 5.0",
-    "orchestra/testbench": "3.1.*",
-    "fzaninotto/faker": "@stable"
+    "illuminate/support": ">= 5.0"
   },
   "prefer-stable": true,
   "minimum-stability": "dev"
