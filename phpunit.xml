@@ -19,4 +19,9 @@
     <whitelist processUncoveredFilesFromWhitelist="false">
         <directory suffix=".php">lib</directory>
     </whitelist>
+    <blacklist>
+        <directory>vendor</directory>
+        <directory>test</directory>
+        <directory>src</directory>
+    </blacklist>
 </phpunit>
