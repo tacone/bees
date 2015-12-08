@@ -16,12 +16,9 @@
             <directory suffix="Test.php">./tests/</directory>
         </testsuite>
     </testsuites>
-    <whitelist processUncoveredFilesFromWhitelist="false">
-        <directory suffix=".php">lib</directory>
-    </whitelist>
-    <blacklist>
-        <directory>vendor</directory>
-        <directory>tests</directory>
-        <directory>src</directory>
-    </blacklist>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="false">
+            <directory suffix=".php">lib</directory>
+        </whitelist>
+    </filter>
 </phpunit>
