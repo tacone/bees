@@ -2,7 +2,7 @@ build:
     environment:
         php:
             version: 5.6.9
-    tests:
+    dependencies:
         before:
             - curl -s http://getcomposer.org/installer | php
             - php scripts/test-with-laravel.php 5.1
