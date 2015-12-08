@@ -16,7 +16,7 @@
             <directory suffix="Test.php">./tests/</directory>
         </testsuite>
     </testsuites>
-    <whitelist>
+    <whitelist processUncoveredFilesFromWhitelist="false">
         <directory suffix=".php">lib</directory>
     </whitelist>
 </phpunit>
