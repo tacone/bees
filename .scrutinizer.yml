@@ -6,8 +6,9 @@ build:
         before:
             - curl -s http://getcomposer.org/installer | php
             - php scripts/test-with-laravel.php 5.1 norestore
+            - mv vendor library
 filter:
     paths:
         - lib/*
     dependency_paths:
-        - vendor/
+        - library/
