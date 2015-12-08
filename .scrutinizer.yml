@@ -9,3 +9,5 @@ build:
 filter:
     paths:
         - lib/*
+      dependency_paths:
+        - vendor/
