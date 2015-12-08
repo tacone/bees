@@ -13,7 +13,7 @@ env:
 
 install:
   - curl -s http://getcomposer.org/installer | php
-  - php composer.phar require satooshi/php-coveralls:~0.6@stable
+  - php composer.phar require "satooshi/php-coveralls:dev-master"
   - php scripts/test-with-laravel.php $LARAVEL
 
 before_script:
