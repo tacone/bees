@@ -59,7 +59,7 @@ passthru("php composer.phar require orchestra/testbench '$orchestralVersion'");
 echo 'Installing Faker'.PHP_EOL;
 passthru("php composer.phar require fzaninotto/faker '@stable'");
 
-if ($noRestore) {
+if (!$noRestore) {
     echo 'Reverting composer.json'.PHP_EOL;
     passthru('cp composer.json composer.json.test');
     passthru('cp composer.json.backup composer.json');
