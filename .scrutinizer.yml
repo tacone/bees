@@ -3,12 +3,9 @@ build:
         php:
             version: 5.6.9
     dependencies:
-        before:
+        override:
             - curl -s http://getcomposer.org/installer | php
             - php scripts/test-with-laravel.php 5.1 norestore
-            - mv vendor library
 filter:
     paths:
         - lib/*
-    dependency_paths:
-        - library/
