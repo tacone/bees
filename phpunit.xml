@@ -21,7 +21,7 @@
     </whitelist>
     <blacklist>
         <directory>vendor</directory>
-        <directory>test</directory>
+        <directory>tests</directory>
         <directory>src</directory>
     </blacklist>
 </phpunit>
