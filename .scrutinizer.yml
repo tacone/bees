@@ -1,4 +1,7 @@
 build:
+    environment:
+        php:
+            version: 5.6.9
     tests:
         before:
             - curl -s http://getcomposer.org/installer | php
