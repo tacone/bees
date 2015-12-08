@@ -5,7 +5,7 @@ build:
     dependencies:
         before:
             - curl -s http://getcomposer.org/installer | php
-            - php scripts/test-with-laravel.php 5.1
+            - php scripts/test-with-laravel.php 5.1 norestore
 filter:
     paths:
         - lib/*

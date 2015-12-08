@@ -25,6 +25,8 @@ if (!$laravelVersion) {
     exit(1);
 }
 
+$noRestore = !empty($argv[2]) && $argv[2] == 'norestore';
+
 echo "Bootstrapping package to test with Laravel $laravelVersion";
 echo PHP_EOL;
 
@@ -57,7 +59,14 @@ passthru("php composer.phar require orchestra/testbench '$orchestralVersion'");
 echo 'Installing Faker'.PHP_EOL;
 passthru("php composer.phar require fzaninotto/faker '@stable'");
 
-echo 'Reverting composer.json'.PHP_EOL;
-passthru('cp composer.json composer.json.test');
-passthru('cp composer.json.backup composer.json');
-passthru('rm composer.json.backup');
+if ($noRestore) {
+    echo 'Reverting composer.json'.PHP_EOL;
+    passthru('cp composer.json composer.json.test');
+    passthru('cp composer.json.backup composer.json');
+    passthru('rm composer.json.backup');
+} else {
+    echo 'You\'ve choosen not to restore composer.json'.PHP_EOL;
+}
+
+echo PHP_EOL;
+echo 'Ready to test!'.PHP_EOL;
