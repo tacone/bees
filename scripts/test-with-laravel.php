@@ -43,7 +43,7 @@ if (strpos($laravelVersion, '.')) {
     $orchestralVersion = implode('.', array_slice($tokens, 0, 2)).'.*';
 } else {
     //    $orchestralVersion = $laravelVersion;
-    $orchestralVersion = '3.2';
+    $orchestralVersion = '3.2@dev';
 }
 
 if (file_exists('vendor')) {
