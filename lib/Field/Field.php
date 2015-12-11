@@ -2,7 +2,7 @@
 
 namespace Tacone\Bees\Field;
 
-use Tacone\Bees\Attribute\ArrAttribute;
+use Tacone\Bees\Attribute\ArrayAttribute;
 use Tacone\Bees\Attribute\JoinedArrayAttribute;
 use Tacone\Bees\Attribute\Attribute;
 
@@ -29,7 +29,7 @@ abstract class Field
 
     public function errors($value = null)
     {
-        return ArrAttribute::make($this, $this->data, 'errors')
+        return ArrayAttribute::make($this, $this->data, 'errors')
             ->handle(func_get_args());
     }
 

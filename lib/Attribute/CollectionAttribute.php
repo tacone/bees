@@ -2,7 +2,7 @@
 
 namespace Tacone\Bees\Attribute;
 
-class CollectionAttribute extends ArrAttribute
+class CollectionAttribute extends ArrayAttribute
 {
     //    public function add($value)
 //    {

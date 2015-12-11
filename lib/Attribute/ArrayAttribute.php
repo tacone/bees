@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Traversable;
 
-class ArrAttribute extends AbstractAttribute implements \Countable, \IteratorAggregate, \ArrayAccess
+class ArrayAttribute extends AbstractAttribute implements \Countable, \IteratorAggregate, \ArrayAccess
 {
     protected $default = [];
 
@@ -58,7 +58,7 @@ class ArrAttribute extends AbstractAttribute implements \Countable, \IteratorAgg
         }
 
         throw new \RuntimeException(sprintf(
-            'ArrAttribute does not supports type: %s%s',
+            'ArrayAttribute does not supports type: %s%s',
             gettype($array),
             is_object($array) ? ' - '.get_class($array) : ''
         ));

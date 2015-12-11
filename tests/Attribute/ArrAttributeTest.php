@@ -2,7 +2,7 @@
 
 namespace Tacone\Bees\Test;
 
-use Tacone\Bees\Attribute\ArrAttribute;
+use Tacone\Bees\Attribute\ArrayAttribute;
 
 require_once 'AttributeTest.php';
 
@@ -15,13 +15,13 @@ class ArrAttributeTest extends AttributeTest
     protected $value3 = ['hello'];
 
     protected $empty = [];
-    protected $objClass = ArrAttribute::class;
+    protected $objClass = ArrayAttribute::class;
 
     public function testGetSet()
     {
         $obj = new \stdClass();
         $obj->data = [];
-        $attribute = ArrAttribute::make($obj, $obj->data, 'test', []);
+        $attribute = ArrayAttribute::make($obj, $obj->data, 'test', []);
 
         $attribute['hello'] = 'world';
         $this->assertEquals('world', $attribute['hello']);
@@ -36,7 +36,7 @@ class ArrAttributeTest extends AttributeTest
     {
         $obj = new \stdClass();
         $obj->data = [];
-        $attribute = ArrAttribute::make($obj, $obj->data, 'test', []);
+        $attribute = ArrayAttribute::make($obj, $obj->data, 'test', []);
 
         assertFalse(isset($attribute['hello']));
         assertFalse(isset($obj->data['test']['hello']));
@@ -61,7 +61,7 @@ class ArrAttributeTest extends AttributeTest
     {
         $obj = new \stdClass();
         $obj->data = [];
-        $attribute = ArrAttribute::make($obj, $obj->data, 'test', []);
+        $attribute = ArrayAttribute::make($obj, $obj->data, 'test', []);
 
         $attribute['hello'] = 'world';
 

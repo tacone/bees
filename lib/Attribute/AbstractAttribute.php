@@ -16,6 +16,10 @@ abstract class AbstractAttribute
         $this->path = $path;
     }
 
+    abstract protected function get();
+
+    abstract protected function set($arguments);
+
     public function handle($arguments)
     {
         if (!count($arguments)) {
@@ -57,6 +61,7 @@ abstract class AbstractAttribute
 
         return $this->object;
     }
+
     public function reset()
     {
         unset($this->storage[$this->path]);

@@ -2,7 +2,7 @@
 
 namespace Tacone\Bees\Attribute;
 
-class JoinedArrayAttribute extends ArrAttribute
+class JoinedArrayAttribute extends ArrayAttribute
 {
     protected $separator = '|';
 
