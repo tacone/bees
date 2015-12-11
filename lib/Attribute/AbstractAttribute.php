@@ -34,9 +34,9 @@ abstract class AbstractAttribute
     }
 
     /**
-     * @param $object
+     * @param \Tacone\Bees\Field\Field $object
      * @param $storage
-     * @param $path
+     * @param string $path
      *
      * @return static
      */
