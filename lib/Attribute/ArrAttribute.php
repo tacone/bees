@@ -10,6 +10,8 @@ use Traversable;
 
 class ArrAttribute extends AbstractAttribute implements \Countable, \IteratorAggregate, \ArrayAccess
 {
+    protected $default = [];
+
     /**
      * Required by DelegatedArrayTrait, must return the
      * storage array.
@@ -19,17 +21,6 @@ class ArrAttribute extends AbstractAttribute implements \Countable, \IteratorAgg
         return !empty($this->storage[$this->path])
             ? $this->storage[$this->path]
             : [];
-    }
-
-    public function handle($arguments)
-    {
-        if (!count($arguments)) {
-            return $this->get();
-        }
-
-        $this->set($arguments);
-
-        return $this->object;
     }
 
     protected function get()

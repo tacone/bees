@@ -4,7 +4,7 @@ namespace Tacone\Bees\Field;
 
 use Tacone\Bees\Attribute\ArrAttribute;
 use Tacone\Bees\Attribute\JoinedArrayAttribute;
-use Tacone\Bees\Attribute\ScalarAttribute;
+use Tacone\Bees\Attribute\Attribute;
 
 abstract class Field
 {
@@ -17,13 +17,13 @@ abstract class Field
 
     public function name($value = null)
     {
-        return ScalarAttribute::make($this, $this->data, 'name')
+        return Attribute::make($this, $this->data, 'name')
             ->handle(func_get_args());
     }
 
     public function value($value = null)
     {
-        return ScalarAttribute::make($this, $this->data, 'value')
+        return Attribute::make($this, $this->data, 'value')
             ->handle(func_get_args());
     }
 

@@ -10,7 +10,11 @@
   ],
   "autoload": {
     "psr-4": {
-      "Tacone\\Bees\\": "lib/",
+      "Tacone\\Bees\\": "lib/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
       "Tacone\\Bees\\Test\\": "tests/",
       "Tacone\\Bees\\Demo\\Controllers\\": "src/controllers/",
       "Tacone\\Bees\\Demo\\Models\\": "src/models/"

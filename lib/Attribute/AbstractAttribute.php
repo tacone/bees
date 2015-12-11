@@ -7,6 +7,7 @@ abstract class AbstractAttribute
     protected $object;
     protected $storage;
     protected $path;
+    protected $default;
 
     protected function __construct($object, &$storage, $path)
     {
@@ -15,10 +16,51 @@ abstract class AbstractAttribute
         $this->path = $path;
     }
 
-    public static function make($object, &$storage, $path)
+    public function handle($arguments)
     {
-        return new static ($object, $storage, $path);
+        if (!count($arguments)) {
+            return array_key_exists($this->path, $this->storage)
+                ? $this->get()
+                : $this->default;
+        }
+
+        $this->set($arguments);
+
+        return $this->object;
     }
 
-    abstract public function handle($arguments);
+    /**
+     * @param $object
+     * @param $storage
+     * @param $path
+     *
+     * @return static
+     */
+    public static function make($object, &$storage, $path, $default = null)
+    {
+        $instance = new static ($object, $storage, $path);
+        if (func_num_args() > 3) {
+            $instance->defaults($default);
+        }
+
+        return $instance;
+    }
+
+    public function defaults($value = null)
+    {
+        $arguments = func_get_args();
+        if (!count($arguments)) {
+            return $this->default;
+        }
+
+        $this->default = $arguments[0];
+
+        return $this->object;
+    }
+    public function reset()
+    {
+        unset($this->storage[$this->path]);
+
+        return $this->object;
+    }
 }

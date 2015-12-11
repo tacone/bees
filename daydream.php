@@ -94,3 +94,11 @@ $field->onValue(function () {
 });
 $field->onGetValue(function () {
 });
+
+$endpoint->on('transform', function ($arguments, $transform) {
+    return $transform($arguments);
+});
+
+$endpoint->transform->before(function ($arguments, $transform) {
+    return $transform($arguments);
+});

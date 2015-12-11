@@ -4,30 +4,18 @@ namespace Tacone\Bees\Test;
 
 use Tacone\Bees\Attribute\ArrAttribute;
 
-class ArrAttributeTest extends BaseTestCase
+require_once 'AttributeTest.php';
+
+class ArrAttributeTest extends AttributeTest
 {
     protected $baseUrl = '/';
 
-    public function testHandle()
-    {
-        $obj = new \stdClass();
-        $obj->data = [];
-        $attribute = ArrAttribute::make($obj, $obj->data, 'test', []);
+    protected $value1 = ['ok'];
+    protected $value2 = ['what','a','nice', 'day'];
+    protected $value3 = ['hello'];
 
-        assertEquals($attribute->handle([]), []);
-
-        assertEquals($obj, $attribute->handle([['ok']]));
-
-        assertEquals($obj->data['test'], ['ok']);
-
-        assertEquals($obj->data['test'], $attribute->handle([]));
-
-        assertEquals($obj, $attribute->handle([null]));
-
-        assertEquals($attribute->handle([]), []);
-
-        assertEquals([], $attribute->handle([]));
-    }
+    protected $empty = [];
+    protected $objClass = ArrAttribute::class;
 
     public function testGetSet()
     {
