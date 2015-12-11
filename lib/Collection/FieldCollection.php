@@ -32,6 +32,9 @@ class FieldCollection implements \Countable, \IteratorAggregate, \ArrayAccess, A
         return $this->storage[$object->name()] = $object;
     }
 
+    /**
+     * @param string $name
+     */
     public function get($name)
     {
         return $this->storage[$name];
@@ -93,6 +96,9 @@ class FieldCollection implements \Countable, \IteratorAggregate, \ArrayAccess, A
         return !$validator->fails();
     }
 
+    /**
+     * @param \Tacone\DataSource\AbstractDataSource $source
+     */
     public function from($source)
     {
         foreach ($this as $name => $field) {
