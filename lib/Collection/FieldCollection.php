@@ -67,7 +67,7 @@ class FieldCollection implements \Countable, \IteratorAggregate, \ArrayAccess, A
      */
     public function toArray($flat = false)
     {
-        $array = $this->value();
+        $array = $this->cast();
         if ($flat) {
             return $array;
         }

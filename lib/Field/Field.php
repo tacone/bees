@@ -38,4 +38,6 @@ abstract class Field
         return JoinedArrayAttribute::make($this, $this->data, 'rules')
             ->handle(func_get_args());
     }
+
+    abstract function cast();
 }

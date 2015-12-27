@@ -2,11 +2,10 @@
 
 namespace Tacone\Bees\Field;
 
-class StringField extends Field
+class BooleanField extends Field
 {
-
     public function cast()
     {
-        return (string)$this->value();
+        return (boolean)$this->value();
     }
 }

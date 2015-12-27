@@ -6,6 +6,8 @@ use App;
 use ArrayAccess;
 use Countable;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Contracts\Support\Renderable;
 use IteratorAggregate;
 use Tacone\Bees\Base\DelegatedArrayTrait;
 use Tacone\Bees\Collection\FieldCollection;
@@ -14,7 +16,7 @@ use Tacone\Bees\Helper\Error;
 use Tacone\DataSource\AbstractDataSource;
 use Tacone\DataSource\DataSource;
 
-class Endpoint implements Countable, IteratorAggregate, ArrayAccess, Arrayable
+class Endpoint implements Countable, IteratorAggregate, ArrayAccess, Arrayable, Jsonable
 {
     use DelegatedArrayTrait;
 
@@ -24,14 +26,23 @@ class Endpoint implements Countable, IteratorAggregate, ArrayAccess, Arrayable
     protected $fields;
 
     /**
-     * @var DataSource
+     * @var AbstractDataSource
      */
     protected $source;
+
+    protected $auto = false;
 
     public function __construct($source = [])
     {
         $this->fields = new FieldCollection();
         $this->initSource($source);
+    }
+
+    public static function auto($source)
+    {
+        $endpoint = new static($source);
+        $endpoint->auto = true;
+        return $endpoint;
     }
 
     protected function initSource($source)
@@ -41,7 +52,7 @@ class Endpoint implements Countable, IteratorAggregate, ArrayAccess, Arrayable
 
     /**
      * @param string $name
-     * @param array  $arguments
+     * @param array $arguments
      *
      * @return Field|static|mixed
      */
@@ -191,5 +202,56 @@ class Endpoint implements Countable, IteratorAggregate, ArrayAccess, Arrayable
         $arguments = func_get_args();
 
         return call_user_func_array([$this->fields, 'errors'], $arguments);
+    }
+
+    /**
+     * Convert the object to its JSON representation.
+     *
+     * @param  int $options
+     * @return string
+     */
+    public function toJson($options = 0)
+    {
+        if ($this->auto) {
+            $this->process();
+        }
+        return json_encode(
+            $this->toArray(),
+            JSON_UNESCAPED_SLASHES
+        );
+    }
+
+    protected function getKey()
+    {
+        $parameters = \Route::current()->parameters();
+        return reset($parameters);
+    }
+
+    protected function process()
+    {
+        $key = $this->getKey();
+        $this->load($key);
+
+        if (\Request::method() == 'POST') {
+            $this->fromInput();
+
+            if ($this->validate()) {
+                $this->writeSource();
+            } else {
+                // TODO: move this to the middleware
+                // HTTP_UNPROCESSABLE_ENTITY
+                App::abort(422, $this->errors() );
+            }
+
+        }
+    }
+
+    protected function load()
+    {
+        $key = $this->getKey();
+        if ($key) {
+            $instance = $this->source->unwrap()->find($key) or App::abort(404);
+            $this->initSource($instance);
+        }
     }
 }
