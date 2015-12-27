@@ -231,16 +231,20 @@ class Endpoint implements Countable, IteratorAggregate, ArrayAccess, Arrayable, 
     {
         $key = $this->getKey();
         $this->load($key);
+        $this->fromSource();
 
-        if (\Request::method() == 'POST') {
+        if (\Request::method() == 'GET') {
+            if (!$key) App::abort(404);
+
+        } elseif (\Request::method() == 'POST') {
             $this->fromInput();
-
             if ($this->validate()) {
                 $this->writeSource();
+                $this->save();
             } else {
                 // TODO: move this to the middleware
                 // HTTP_UNPROCESSABLE_ENTITY
-                App::abort(422, $this->errors() );
+                App::abort(422, $this->errors());
             }
 
         }
