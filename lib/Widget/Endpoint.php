@@ -162,8 +162,8 @@ class Endpoint implements Countable, IteratorAggregate, ArrayAccess, Arrayable, 
 
     public function fromInput()
     {
-        $request = method_exists('\Request', 'all')
-            ? \Request::instance()
+        $request = method_exists($request = \Request::instance(), 'all')
+            ? $request
             : \Input::instance();
 
         return $this->from($request->all());
