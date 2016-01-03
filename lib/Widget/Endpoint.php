@@ -141,7 +141,7 @@ class Endpoint implements Countable, IteratorAggregate, ArrayAccess, Arrayable, 
     public function writeSource()
     {
         foreach ($this->fields as $name => $field) {
-            $this->source[$name] = $field->value();
+            $this->source[$name] = $field->cast();
         }
     }
 
