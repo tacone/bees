@@ -7,7 +7,6 @@ use ArrayAccess;
 use Countable;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
-use Illuminate\Contracts\Support\Renderable;
 use IteratorAggregate;
 use Tacone\Bees\Base\DelegatedArrayTrait;
 use Tacone\Bees\Collection\FieldCollection;
@@ -42,6 +41,7 @@ class Endpoint implements Countable, IteratorAggregate, ArrayAccess, Arrayable, 
     {
         $endpoint = new static($source);
         $endpoint->auto = true;
+
         return $endpoint;
     }
 
@@ -52,7 +52,7 @@ class Endpoint implements Countable, IteratorAggregate, ArrayAccess, Arrayable, 
 
     /**
      * @param string $name
-     * @param array $arguments
+     * @param array  $arguments
      *
      * @return Field|static|mixed
      */
@@ -162,6 +162,10 @@ class Endpoint implements Countable, IteratorAggregate, ArrayAccess, Arrayable, 
 
     public function fromInput()
     {
+        $request = method_exists('\Request', 'all')
+            ? \Request::instance()
+            : \Input::instance();
+
         return $this->from(\Input::all());
     }
 
@@ -207,7 +211,8 @@ class Endpoint implements Countable, IteratorAggregate, ArrayAccess, Arrayable, 
     /**
      * Convert the object to its JSON representation.
      *
-     * @param  int $options
+     * @param int $options
+     *
      * @return string
      */
     public function toJson($options = 0)
@@ -215,6 +220,7 @@ class Endpoint implements Countable, IteratorAggregate, ArrayAccess, Arrayable, 
         if ($this->auto) {
             $this->process();
         }
+
         return json_encode(
             $this->toArray(),
             JSON_UNESCAPED_SLASHES
@@ -224,6 +230,7 @@ class Endpoint implements Countable, IteratorAggregate, ArrayAccess, Arrayable, 
     protected function getKey()
     {
         $parameters = \Route::current()->parameters();
+
         return reset($parameters);
     }
 
@@ -234,8 +241,9 @@ class Endpoint implements Countable, IteratorAggregate, ArrayAccess, Arrayable, 
         $this->fromSource();
 
         if (\Request::method() == 'GET') {
-            if (!$key) App::abort(404);
-
+            if (!$key) {
+                App::abort(404);
+            }
         } elseif (\Request::method() == 'POST') {
             $this->fromInput();
             if ($this->validate()) {
@@ -246,7 +254,6 @@ class Endpoint implements Countable, IteratorAggregate, ArrayAccess, Arrayable, 
                 // HTTP_UNPROCESSABLE_ENTITY
                 App::abort(422, $this->errors());
             }
-
         }
     }
 
