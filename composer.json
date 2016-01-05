@@ -22,7 +22,7 @@
   },
   "require": {
     "tacone/datasource": "dev-master",
-    "illuminate/support": ">= 5.0"
+    "illuminate/support": ">= 5.0.14"
   },
   "prefer-stable": true,
   "minimum-stability": "dev"
