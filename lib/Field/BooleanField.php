@@ -6,6 +6,8 @@ class BooleanField extends Field
 {
     public function cast()
     {
-        return (boolean)$this->value();
+        $value = $this->value();
+        if ($value === "false") return false;
+        return (boolean)$value;
     }
 }
