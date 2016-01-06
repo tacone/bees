@@ -249,11 +249,16 @@ class Endpoint implements Countable, IteratorAggregate, ArrayAccess, Arrayable, 
             if ($this->validate()) {
                 $this->writeSource();
                 $this->save();
+
+                // we need to update the ID and timestamps
+                $this->fromSource();
             } else {
                 // TODO: move this to the middleware
                 // HTTP_UNPROCESSABLE_ENTITY
                 App::abort(422, $this->errors());
             }
+        } elseif (\Request::method() == 'DELETE') {
+                $this->source->unwrap()->delete();
         }
     }
 
