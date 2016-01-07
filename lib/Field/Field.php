@@ -17,27 +17,27 @@ abstract class Field
 
     public function name($value = null)
     {
-        return Attribute::make($this, $this->data, 'name')
+        return Attribute::make($this, $this->data, __FUNCTION__)
             ->handle(func_get_args());
     }
 
     public function value($value = null)
     {
-        return Attribute::make($this, $this->data, 'value')
+        return Attribute::make($this, $this->data, __FUNCTION__)
             ->handle(func_get_args());
     }
 
     public function errors($value = null)
     {
-        return ArrayAttribute::make($this, $this->data, 'errors')
+        return ArrayAttribute::make($this, $this->data, __FUNCTION__)
             ->handle(func_get_args());
     }
 
     public function rules($value = null)
     {
-        return JoinedArrayAttribute::make($this, $this->data, 'rules')
+        return JoinedArrayAttribute::make($this, $this->data, __FUNCTION__)
             ->handle(func_get_args());
     }
 
-    abstract function cast();
+    abstract public function cast();
 }
